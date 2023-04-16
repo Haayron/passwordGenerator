@@ -1,70 +1,102 @@
-let contemLetras = document.querySelector('.contemLetras');
-
-console.log(contemLetras.checked)
-
-let contemNumeros = document.querySelector('.contemNumeros');
-let contemSimbolos = document.querySelector('.contemSimbolos');
-
-
-
- 
-let btnSenha = document.querySelector('#gerarSenha')
-
+let estado = document.querySelectorAll('.checkbox');
+let btnSenha = document.querySelector('#gerarSenha');
 let displaySenha = document.querySelector('#senhaAqui');
 
-let password = '';
+let password = [];
 
-
-// contemLetras.addEventListener('click', gerarRandomString);
-btnSenha.addEventListener('click', gerarRandomString);
-
-
-let numeroChars = 8;
-
+let tamanhoSenha = document.querySelector('#tamanhoSenha');
  
+let infoTamanhoSenha = document.querySelector('label[for="tamanhoSenha"]');
+
+infoTamanhoSenha.innerHTML = tamanhoSenha.value;
+
+tamanhoSenha.addEventListener('change', alterarTamanhoSenha)
+
+function alterarTamanhoSenha () {
+    infoTamanhoSenha.innerHTML = tamanhoSenha.value;
+}
 
 
+let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let charsetNumbers = '0123456789';
+let charsetSimbols = '!@#$%¨&*()_+/?';
 
+let charLetterNumber = charset + charsetNumbers;
+let charNumSimb = charsetNumbers + charsetSimbols;
+let charLetterSimb = charset + charsetSimbols;
 
-function gerarRandomString() {
-    if (contemLetras.checked == true) {
-        let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let charAll = charset + charsetNumbers + charsetSimbols;
 
-        let charactersNumber = charset.length;
-        let password = [];
+btnSenha.addEventListener('click', checarEstado);
 
-        // push
-        for (let i = 0; i < numeroChars; i++) {
-            password.push(charset.charAt(Math.random() * charactersNumber));
+function checarEstado() {
+    if (estado[0].checked == true && estado[1].checked == false && estado[2].checked == false) {
+
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charset.charAt(Math.random() * charset.length);
         }
 
-        console.log("Contem Letras: " + password);
+        displaySenha.value = password.join('');
 
-    } else if (contemNumeros.checked == true) {
-        let charNumbers = "0123456789";
-        let charLength = charNumbers.length;
-        let numberPassword = [];
+    } else if (estado[1].checked == true && estado[2].checked == false && estado[0].checked == false) {
 
-        for (i = 0; i < numeroChars; i++) {
-            numberPassword.push(charNumbers.charAt(Math.random() * charLength));
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charsetNumbers.charAt(Math.random() * charsetNumbers.length);
+
         }
 
-        console.log("Contem Números: " + numberPassword);
+        displaySenha.value = password.join('');
 
-    } else if (contemLetras.checked == true && contemNumeros.checked == true) {
-        let charsMisto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    } else if (estado[2].checked == true && estado[1].checked == false && estado[0].checked == false) {
 
-        let charsTeste = charsMisto.length;
-
-        let passwordMisto = [];
-
-        for (let i = 0; i < numeroChars; i++) {
-            passwordMisto.push(charsTeste.charAt(Math.random() * charsMisto.length));
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charsetSimbols.charAt(Math.random() * charsetSimbols.length);
         }
 
-        console.log("Contém Letras e Números: " + passwordMisto);
+        displaySenha.value = password.join('');
+
+    } else if (estado[0].checked == true && estado[1].checked == true && estado[2].checked == false) {
+
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charLetterNumber.charAt(Math.random() * charLetterNumber.length);
+        }
+
+        displaySenha.value = password.join('');
+
+    } else if (estado[1].checked == true && estado[2].checked == true && estado[0].checked == false) {
+
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charNumSimb.charAt(Math.random() * charNumSimb.length);
+        }
+
+        displaySenha.value = password.join('');
+
+    } else if (estado[0].checked == true && estado[2].checked == true && estado[1].checked == false) {
+
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charLetterSimb.charAt(Math.random() * charLetterSimb.length);
+        }
+
+        displaySenha.value = password.join('');
+
+    } else if (estado[1].checked == true && estado[2].checked == true && estado[0].checked == true) {
+
+        for (i = 0; i < tamanhoSenha.value; i++) {
+            password[i] = charAll.charAt(Math.random() * charAll.length);
+        }
+
+        displaySenha.value = password.join('');
+
+    } else {
+        alert('Selecione ao menos uma opção');
+
+        displaySenha.value = '';
     }
+
+
+    console.log(displaySenha.value)
 
 }
 
- 
+
+
