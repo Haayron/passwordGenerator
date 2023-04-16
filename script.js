@@ -1,33 +1,70 @@
-// Adicionando Letras
+let contemLetras = document.querySelector('.contemLetras');
 
-let contemLetras =  document.querySelector('.contemLetras');
+console.log(contemLetras.checked)
+
+let contemNumeros = document.querySelector('.contemNumeros');
+let contemSimbolos = document.querySelector('.contemSimbolos');
 
 
-contemLetras.addEventListener('click', gerarRandomString);
 
-// numero de caracteres
+ 
+let btnSenha = document.querySelector('#gerarSenha')
+
+let displaySenha = document.querySelector('#senhaAqui');
+
+let password = '';
+
+
+// contemLetras.addEventListener('click', gerarRandomString);
+btnSenha.addEventListener('click', gerarRandomString);
+
+
 let numeroChars = 8;
 
+ 
 
-function gerarRandomString () {
-    if(contemLetras.checked == true) {
+
+
+
+function gerarRandomString() {
+    if (contemLetras.checked == true) {
         let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         let charactersNumber = charset.length;
+        let password = [];
 
-        // retornando numero entre 0 e charset.length
- 
-
-        let valor = '';
-
-        // push forçado
+        // push
         for (let i = 0; i < numeroChars; i++) {
-            valor += charset.charAt(Math.random() * charactersNumber);
+            password.push(charset.charAt(Math.random() * charactersNumber));
         }
 
+        console.log("Contem Letras: " + password);
 
-        console.log(valor)
+    } else if (contemNumeros.checked == true) {
+        let charNumbers = "0123456789";
+        let charLength = charNumbers.length;
+        let numberPassword = [];
+
+        for (i = 0; i < numeroChars; i++) {
+            numberPassword.push(charNumbers.charAt(Math.random() * charLength));
+        }
+
+        console.log("Contem Números: " + numberPassword);
+
+    } else if (contemLetras.checked == true && contemNumeros.checked == true) {
+        let charsMisto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        let charsTeste = charsMisto.length;
+
+        let passwordMisto = [];
+
+        for (let i = 0; i < numeroChars; i++) {
+            passwordMisto.push(charsTeste.charAt(Math.random() * charsMisto.length));
+        }
+
+        console.log("Contém Letras e Números: " + passwordMisto);
     }
-       
+
 }
+
  
