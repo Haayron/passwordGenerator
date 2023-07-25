@@ -2,101 +2,74 @@ let estado = document.querySelectorAll('.checkbox');
 let btnSenha = document.querySelector('#gerarSenha');
 let displaySenha = document.querySelector('#senhaAqui');
 
-let password = [];
+// exibicao da alteracao da senha
 
 let tamanhoSenha = document.querySelector('#tamanhoSenha');
- 
+
 let infoTamanhoSenha = document.querySelector('label[for="tamanhoSenha"]');
 
 infoTamanhoSenha.innerHTML = tamanhoSenha.value;
 
 tamanhoSenha.addEventListener('change', alterarTamanhoSenha)
 
-function alterarTamanhoSenha () {
+// comeco da senha
+
+displaySenha.style.opacity = 0;
+
+function alterarTamanhoSenha() {
     infoTamanhoSenha.innerHTML = tamanhoSenha.value;
 }
 
+let charSets = [
+    upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    lowerCase = 'abcdefghijklmnopqrstuvwxyz',
+    numbers = '0123456789',
+    symbols = '!@#$%¨&*()_+/?'
+];
 
-let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let charsetNumbers = '0123456789';
-let charsetSimbols = '!@#$%¨&*()_+/?';
+btnSenha.addEventListener('click', gerarSenha);
 
-let charLetterNumber = charset + charsetNumbers;
-let charNumSimb = charsetNumbers + charsetSimbols;
-let charLetterSimb = charset + charsetSimbols;
+function gerarSenha () {
+   
+    let selectedCharsets = '';
 
-let charAll = charset + charsetNumbers + charsetSimbols;
+    // verificar checkbox
+    estado.forEach(verificarCheckbox);
 
-btnSenha.addEventListener('click', checarEstado);
-
-function checarEstado() {
-    if (estado[0].checked == true && estado[1].checked == false && estado[2].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charset.charAt(Math.random() * charset.length);
+    function verificarCheckbox(checkbox, index) {
+        if(checkbox.checked) {
+            selectedCharsets += charSets[index];
         }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[1].checked == true && estado[2].checked == false && estado[0].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charsetNumbers.charAt(Math.random() * charsetNumbers.length);
-
-        }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[2].checked == true && estado[1].checked == false && estado[0].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charsetSimbols.charAt(Math.random() * charsetSimbols.length);
-        }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[0].checked == true && estado[1].checked == true && estado[2].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charLetterNumber.charAt(Math.random() * charLetterNumber.length);
-        }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[1].checked == true && estado[2].checked == true && estado[0].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charNumSimb.charAt(Math.random() * charNumSimb.length);
-        }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[0].checked == true && estado[2].checked == true && estado[1].checked == false) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charLetterSimb.charAt(Math.random() * charLetterSimb.length);
-        }
-
-        displaySenha.value = password.join('');
-
-    } else if (estado[1].checked == true && estado[2].checked == true && estado[0].checked == true) {
-
-        for (i = 0; i < tamanhoSenha.value; i++) {
-            password[i] = charAll.charAt(Math.random() * charAll.length);
-        }
-
-        displaySenha.value = password.join('');
-
-    } else {
-        alert('Selecione ao menos uma opção');
-
-        displaySenha.value = '';
     }
 
+    if (selectedCharsets.length === 0) {
+        alert('Selecione ao menos uma opção');
+        displaySenha.value = '';
 
-    console.log(displaySenha.value)
+        displaySenha.style.opacity = 0;
+        
+        return;
+    }
 
+    let password = '';
+
+    for (let i=0; i < tamanhoSenha.value; i++) {
+        password += selectedCharsets.charAt(Math.floor(Math.random() * selectedCharsets.length));
+    }
+
+    displaySenha.value = password;
+
+    let passwordLength = password.length;
+
+
+    let minWidth = 50;
+    let maxWidth = 240;
+    let width = minWidth + passwordLength * 10;
+    width = Math.min(maxWidth, width);
+
+    displaySenha.style.textAlign = 'center';
+    displaySenha.style.width = width + 'px';
+
+
+    displaySenha.style.opacity = 1;
 }
-
-
-
