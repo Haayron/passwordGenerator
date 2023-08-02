@@ -13,26 +13,56 @@
     <br>
 
     <p>Selecione o que deseja incluir na sua senha:</p>
-    <br>
   
     <form>
-        <label for="">Letras</label>
-        <input class="contemLetras" type="checkbox">
+      
+        <br>
+
+        <label for="">UpperCase</label>
+        <input class="checkbox" type="checkbox">
+
+        <br>
+
+        <label for="">LowerCase</label>
+        <input class="checkbox" type="checkbox">
 
         <br>
         
-        <label for="">Números</label>
-        <input class="checkNumbers" type="checkbox">
+        <label for="">Numbers</label>
+        <input class="checkbox" type="checkbox">
 
         <br>
-        <label for="">Símbolos</label>
-        <input class="checkSymbols" type="checkbox">
+        <label for="">Symbols</label>
+        <input class="checkbox" type="checkbox">
+        <br>
+        <br>
+
+        <p>Quantidade de Caracteres</p>
+        <label for="tamanhoSenha"></label>
+        <input id="tamanhoSenha" type="range" min="8" max="24"> 
+
+        <br><br>
+
+        <button type="button"   id="gerarSenha">Gerar senha</button>
+
+        <br>
+        
     </form>
 
     <br>
 
     <p>Sua senha aqui:</p>
-    <input type="text" readonly>
+
+    <input id="senhaAqui" type="text" readonly>
+
+    <br>
+
+    <button id="copyButton">
+        Copiar senha
+    </button>
+
+    <br>
+
 
     <script src="script.js"></script>
 </body>
