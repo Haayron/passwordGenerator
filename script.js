@@ -105,3 +105,4 @@ function copyPassword() {
 
 }
 
+//altereação feita diretamente no github
